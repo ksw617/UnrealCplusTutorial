@@ -3,6 +3,8 @@
 
 #include "PlayerAnimInstance.h"
 #include "MyCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
+
 
 void UPlayerAnimInstance::NativeInitializeAnimation()
 {
@@ -22,8 +24,6 @@ void UPlayerAnimInstance::NativeBeginPlay()
 		if (IsValid(MyCharacter))
 		{
 			CharacterMovement = MyCharacter->GetCharacterMovement();
-			UE_LOG(LogTemp, Log, TEXT("Character Movement is valid"));
-
 		}
 
 	}
@@ -35,6 +35,15 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	if (IsValid(MyCharacter))
 	{
+		FVector Velocity = CharacterMovement->Velocity;
+		FRotator Rotation = MyCharacter->GetActorRotation();
+		FVector UnrotateVector = Rotation.UnrotateVector(Velocity);
+
+		Vertical = UnrotateVector.X;
+		Horizontal = UnrotateVector.Y;
+		
+
 		Speed = MyCharacter->GetVelocity().Size2D();
+
 	}
 }

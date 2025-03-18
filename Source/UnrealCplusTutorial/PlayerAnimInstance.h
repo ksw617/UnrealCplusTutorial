@@ -20,10 +20,16 @@ private:
 	float Horizontal;
 	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	float Vertical;
+
+	//이 두개 구현 해보세요.
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	bool ShouldMove;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	bool IsFalling;
 public:
 	UPROPERTY(VisibleAnywhere)
-	class AMyCharacter* MyCharacter; // APawn -> AMyCharacter
-	UPROPERTY(VisibleAnywhere)// 추가
+	class AMyCharacter* MyCharacter; 
+	UPROPERTY(VisibleAnywhere)
 	class UCharacterMovementComponent* CharacterMovement;
 public:
 	virtual void NativeInitializeAnimation() override;

@@ -52,5 +52,20 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyCharacter::KeyUpDown);
+	PlayerInputComponent->BindAxis(TEXT("LeftRight"), this, &AMyCharacter::KeyLeftRight);
+
+}
+
+void AMyCharacter::KeyUpDown(float Value)
+{
+	
+	AddMovementInput(GetActorForwardVector(), Value, false);
+	
+}
+
+void AMyCharacter::KeyLeftRight(float Value)
+{
+	AddMovementInput(GetActorRightVector(), Value, false);
 }
 

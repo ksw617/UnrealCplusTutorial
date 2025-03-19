@@ -15,17 +15,17 @@ class UNREALCPLUSTUTORIAL_API UPlayerAnimInstance : public UAnimInstance
 	GENERATED_BODY()
 private:
 	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FVector Velocity;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	float Speed;
-	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-	float Horizontal;
-	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-	float Vertical;
 
-	//이 두개 구현 해보세요.
 	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	bool ShouldMove;
 	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	bool IsFalling;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	float YawOffset;
+
 public:
 	UPROPERTY(VisibleAnywhere)
 	class AMyCharacter* MyCharacter; 

@@ -33,17 +33,18 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
 
-	if (IsValid(MyCharacter))
+	if (IsValid(CharacterMovement))
 	{
-		FVector Velocity = CharacterMovement->Velocity;
+		Velocity = CharacterMovement->Velocity;
 		FRotator Rotation = MyCharacter->GetActorRotation();
 		FVector UnrotateVector = Rotation.UnrotateVector(Velocity);
 
-		Vertical = UnrotateVector.X;
-		Horizontal = UnrotateVector.Y;
-		
-
 		Speed = MyCharacter->GetVelocity().Size2D();
 
+		auto Acceleration = CharacterMovement->GetCurrentAcceleration();
+
+		ShouldMove = Speed > 0.3f && Acceleration != FVector::Zero();
+
+		IsFalling = CharacterMovement->IsFalling();
 	}
 }

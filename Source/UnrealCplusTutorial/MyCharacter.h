@@ -34,5 +34,7 @@ public:
 public:
 	void KeyUpDown(float Value);
 	void KeyLeftRight(float Value);
+	void MouseLookLeftRight(float Value);
+	void MouseLookUpDown(float Value);
 
 };

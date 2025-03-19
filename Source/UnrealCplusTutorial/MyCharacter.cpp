@@ -55,6 +55,13 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyCharacter::KeyUpDown);
 	PlayerInputComponent->BindAxis(TEXT("LeftRight"), this, &AMyCharacter::KeyLeftRight);
 
+
+	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AMyCharacter::Jump);
+
+	PlayerInputComponent->BindAxis(TEXT("LookUpDown"), this, &AMyCharacter::MouseLookUpDown);
+	PlayerInputComponent->BindAxis(TEXT("LookLeftRight"), this, &AMyCharacter::MouseLookLeftRight);
+
+
 }
 
 void AMyCharacter::KeyUpDown(float Value)
@@ -67,5 +74,16 @@ void AMyCharacter::KeyUpDown(float Value)
 void AMyCharacter::KeyLeftRight(float Value)
 {
 	AddMovementInput(GetActorRightVector(), Value, false);
+}
+
+void AMyCharacter::MouseLookLeftRight(float Value)
+{
+	UE_LOG(LogTemp, Log, TEXT("Look Left Right : %f"), Value);
+	//Todo
+}
+
+void AMyCharacter::MouseLookUpDown(float Value)
+{	 
+	//Todo
 }
 

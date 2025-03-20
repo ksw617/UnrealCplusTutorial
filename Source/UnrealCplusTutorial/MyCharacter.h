@@ -15,6 +15,8 @@ private:
 	class USpringArmComponent* SpringArm;
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
+	UPROPERTY(VisibleAnywhere)
+	class UPlayerAnimInstance* PlayerAnimInstance; // Ãß°¡
 
 public:
 	// Sets default values for this character's properties
@@ -24,7 +26,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -36,5 +38,6 @@ public:
 	void KeyLeftRight(float Value);
 	void MouseLookLeftRight(float Value);
 	void MouseLookUpDown(float Value);
+	void Fire();
 
 };

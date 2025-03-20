@@ -7,7 +7,7 @@
 #include "PlayerAnimInstance.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class UNREALCPLUSTUTORIAL_API UPlayerAnimInstance : public UAnimInstance
@@ -25,14 +25,24 @@ private:
 	bool IsFalling;
 	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	float YawOffset;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FRotator AimRotation;
 
 public:
 	UPROPERTY(VisibleAnywhere)
-	class AMyCharacter* MyCharacter; 
+	class AMyCharacter* MyCharacter;
 	UPROPERTY(VisibleAnywhere)
 	class UCharacterMovementComponent* CharacterMovement;
+	UPROPERTY(VisibleAnywhere)
+	UAnimMontage* FireMontage;
+
 public:
-	virtual void NativeInitializeAnimation() override;
+	UPlayerAnimInstance();
+	//virtual void NativeInitializeAnimation() override;
 	virtual void NativeBeginPlay() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+
+public:
+	void PlayFireMontage();
+
 };

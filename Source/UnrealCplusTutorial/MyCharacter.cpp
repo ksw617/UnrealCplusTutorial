@@ -4,8 +4,8 @@
 #include "MyCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h" // 추가
-
+#include "Components/CapsuleComponent.h"
+#include "PlayerAnimInstance.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -30,6 +30,7 @@ AMyCharacter::AMyCharacter()
 
 	SpringArm->TargetArmLength = 400.f;
 	SpringArm->SetRelativeRotation(FRotator(-35.f, 0.f, 0.f));
+	SpringArm->bUsePawnControlRotation = true; // 추가
 
 }
 
@@ -37,6 +38,9 @@ AMyCharacter::AMyCharacter()
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	auto AnimInstance = GetMesh()->GetAnimInstance();
+	PlayerAnimInstance = Cast<UPlayerAnimInstance>(AnimInstance);
 	
 }
 
@@ -62,6 +66,8 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis(TEXT("LookLeftRight"), this, &AMyCharacter::MouseLookLeftRight);
 
 
+	PlayerInputComponent->BindAction(TEXT("Fire"), EInputEvent::IE_Pressed, this, &AMyCharacter::Fire);
+
 }
 
 void AMyCharacter::KeyUpDown(float Value)
@@ -78,12 +84,20 @@ void AMyCharacter::KeyLeftRight(float Value)
 
 void AMyCharacter::MouseLookLeftRight(float Value)
 {
-	UE_LOG(LogTemp, Log, TEXT("Look Left Right : %f"), Value);
-	//Todo
+	AddControllerYawInput(Value);
 }
 
 void AMyCharacter::MouseLookUpDown(float Value)
 {	 
-	//Todo
+	AddControllerPitchInput(Value);
+}
+
+void AMyCharacter::Fire()
+{
+	if (IsValid(PlayerAnimInstance))
+	{
+		PlayerAnimInstance->PlayFireMontage();
+	}
+
 }
 

@@ -4,11 +4,20 @@
 #include "PlayerAnimInstance.h"
 #include "MyCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 
-void UPlayerAnimInstance::NativeInitializeAnimation()
+
+UPlayerAnimInstance::UPlayerAnimInstance()
 {
-	Super::NativeInitializeAnimation();
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> AM(TEXT("/Script/Engine.AnimMontage'/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/Primary_Fire_Med_Montage.Primary_Fire_Med_Montage'"));
+
+	if (AM.Succeeded())
+	{
+		FireMontage = AM.Object;
+		UE_LOG(LogTemp, Log, TEXT("0"));
+	}
 }
 
 void UPlayerAnimInstance::NativeBeginPlay()
@@ -27,6 +36,7 @@ void UPlayerAnimInstance::NativeBeginPlay()
 		}
 
 	}
+
 }
 
 void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
@@ -46,5 +56,28 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		ShouldMove = Speed > 0.3f && Acceleration != FVector::Zero();
 
 		IsFalling = CharacterMovement->IsFalling();
+
+		AimRotation = MyCharacter->GetBaseAimRotation();
+		FRotator RotFromX = UKismetMathLibrary::MakeRotFromX(Velocity);
+
+		FRotator DeltaRotation = AimRotation - RotFromX;
+		DeltaRotation.Normalize();
+
+		YawOffset = DeltaRotation.Yaw;
+		
+		
+	}
+}
+
+void UPlayerAnimInstance::PlayFireMontage()
+{
+	if (IsValid(FireMontage))
+	{
+		UE_LOG(LogTemp, Log, TEXT("1"));
+		if (!Montage_IsPlaying(FireMontage))
+		{
+			UE_LOG(LogTemp, Log, TEXT("2"));
+			Montage_Play(FireMontage);
+		}
 	}
 }

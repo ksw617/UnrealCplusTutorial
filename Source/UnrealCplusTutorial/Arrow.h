@@ -4,19 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MyActor.generated.h"
+#include "Arrow.generated.h"
 
 UCLASS()
-class UNREALCPLUSTUTORIAL_API AMyActor : public AActor
+class UNREALCPLUSTUTORIAL_API AArrow : public AActor
 {
 	GENERATED_BODY()
-	
 private:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* Mesh;
+	UPROPERTY(VisibleAnywhere)
+	class UBoxComponent* CollisionBox;
+	
 public:	
 	// Sets default values for this actor's properties
-	AMyActor();
+	AArrow();
 
 protected:
 	// Called when the game starts or when spawned

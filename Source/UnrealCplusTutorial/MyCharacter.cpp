@@ -30,7 +30,8 @@ AMyCharacter::AMyCharacter()
 
 	SpringArm->TargetArmLength = 400.f;
 	SpringArm->SetRelativeRotation(FRotator(-35.f, 0.f, 0.f));
-	SpringArm->bUsePawnControlRotation = true; // 추가
+	SpringArm->SocketOffset = FVector(0.f, 120.f, 75.f); // 추가
+	SpringArm->bUsePawnControlRotation = true; 
 
 }
 

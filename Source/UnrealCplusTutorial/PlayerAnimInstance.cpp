@@ -64,6 +64,25 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		DeltaRotation.Normalize();
 
 		YawOffset = DeltaRotation.Yaw;
+
+		if (ShouldMove || IsFalling)
+		{
+
+			RotateYaw = FMath::FInterpTo(RotateYaw, 0.f, DeltaSeconds, 20.f);
+			MovingRotation = MyCharacter->GetActorRotation();
+			PrevRotation = MovingRotation;
+
+		}
+		else
+		{
+			PrevRotation = MovingRotation;
+			MovingRotation = MyCharacter->GetActorRotation();
+			FRotator DeletaRotation = MovingRotation - PrevRotation;
+			RotateYaw -= DeletaRotation.Yaw;
+		}
+
+
+		UE_LOG(LogTemp, Log, TEXT("Rotation : %f"), RotateYaw);
 		
 		
 	}
@@ -73,10 +92,8 @@ void UPlayerAnimInstance::PlayFireMontage()
 {
 	if (IsValid(FireMontage))
 	{
-		UE_LOG(LogTemp, Log, TEXT("1"));
 		if (!Montage_IsPlaying(FireMontage))
 		{
-			UE_LOG(LogTemp, Log, TEXT("2"));
 			Montage_Play(FireMontage);
 		}
 	}

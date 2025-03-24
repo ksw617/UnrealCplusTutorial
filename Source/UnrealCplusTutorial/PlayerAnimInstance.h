@@ -28,6 +28,13 @@ private:
 	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FRotator AimRotation;
 
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	float RotateYaw;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FRotator MovingRotation;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FRotator PrevRotation;
+
 public:
 	UPROPERTY(VisibleAnywhere)
 	class AMyCharacter* MyCharacter;
@@ -38,7 +45,8 @@ public:
 
 public:
 	UPlayerAnimInstance();
-	//virtual void NativeInitializeAnimation() override;
+public:
+
 	virtual void NativeBeginPlay() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 

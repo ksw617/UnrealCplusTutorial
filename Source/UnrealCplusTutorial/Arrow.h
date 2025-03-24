@@ -12,9 +12,14 @@ class UNREALCPLUSTUTORIAL_API AArrow : public AActor
 	GENERATED_BODY()
 private:
 	UPROPERTY(VisibleAnywhere)
+	USceneComponent* DefaultRoot;
+	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* Mesh;
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* CollisionBox;
+	UPROPERTY(VisibleAnywhere)
+	class UProjectileMovementComponent* ProjectileMovement;
+
 	
 public:	
 	// Sets default values for this actor's properties

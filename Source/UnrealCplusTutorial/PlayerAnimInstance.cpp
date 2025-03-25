@@ -77,12 +77,53 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		{
 			PrevRotation = MovingRotation;
 			MovingRotation = MyCharacter->GetActorRotation();
-			FRotator DeletaRotation = MovingRotation - PrevRotation;
-			RotateYaw -= DeletaRotation.Yaw;
+			FRotator Delta = MovingRotation - PrevRotation;
+			Delta.Normalize();
+			RotateYaw -= Delta.Yaw;
+
+			float TurnValue = GetCurveValue("Turn");
+
+			//애니메이션이 실행 되고 있다면
+			if (TurnValue > 0.f)
+			{
+				//Delta값을 구하기 위해서
+				PrevDistanceCurve = DistanceCurve;
+				DistanceCurve = GetCurveValue("DistanceCurve");
+				DeltaDistanceCurve = DistanceCurve - PrevDistanceCurve;
+				//왼쪽회전 오른쪽 회전 구분
+				if (RotateYaw > 0.f)
+				{
+					RotateYaw -= DeltaDistanceCurve;
+				}
+				else
+				{
+					RotateYaw += DeltaDistanceCurve;
+				}
+
+				//회전값이 있을 경우
+				float AbsRotateYawOffset = FMath::Abs(RotateYaw);
+				if (AbsRotateYawOffset > 0.f)
+				{
+					//90도 회전이라 회전 값에 90.f을 뺌
+					float YawExcess = AbsRotateYawOffset - 90.f;
+
+					//왼쪽회전 오른쪽 회전 구분
+					if (RotateYaw > 0.f)
+					{
+						RotateYaw -= YawExcess;
+					}
+					else
+					{
+						RotateYaw += YawExcess;
+					}
+
+				}
+
+			}
 		}
 
-
-		UE_LOG(LogTemp, Log, TEXT("Rotation : %f"), RotateYaw);
+		UE_LOG(LogTemp, Log, TEXT("RotateYaw : %f"), RotateYaw);
+	
 		
 		
 	}

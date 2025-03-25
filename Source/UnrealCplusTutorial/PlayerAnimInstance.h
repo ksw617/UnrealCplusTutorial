@@ -34,6 +34,15 @@ private:
 	FRotator MovingRotation;
 	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FRotator PrevRotation;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	float PrevDistanceCurve;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+
+	float DistanceCurve;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+
+	float DeltaDistanceCurve;
+
 
 public:
 	UPROPERTY(VisibleAnywhere)

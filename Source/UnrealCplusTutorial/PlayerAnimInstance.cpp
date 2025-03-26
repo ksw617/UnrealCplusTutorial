@@ -16,7 +16,6 @@ UPlayerAnimInstance::UPlayerAnimInstance()
 	if (AM.Succeeded())
 	{
 		FireMontage = AM.Object;
-		UE_LOG(LogTemp, Log, TEXT("0"));
 	}
 }
 
@@ -122,10 +121,7 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			}
 		}
 
-		UE_LOG(LogTemp, Log, TEXT("RotateYaw : %f"), RotateYaw);
-	
-		
-		
+
 	}
 }
 
